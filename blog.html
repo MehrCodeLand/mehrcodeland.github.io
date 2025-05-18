@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - [Your Name]</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            line-height: 1.6;
+            color: #000;
+            background-color: #fff;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #000;
+            padding: 1rem 0;
+            z-index: 1000;
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin: 0 1.5rem;
+        }
+        
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 7rem 2rem 2rem;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #000;
+            padding-bottom: 0.5rem;
+        }
+        
+        section {
+            margin-bottom: 3rem;
+        }
+        
+        /* Blog Categories */
+        .blog-categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .category-filter {
+            background: none;
+            border: 1px solid #000;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .category-filter:hover,
+        .category-filter.active {
+            background-color: #000;
+            color: #fff;
+        }
+        
+        /* Blog Posts */
+        .blog-posts {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        
+        .blog-post {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+        }
+        
+        .blog-post:last-child {
+            border-bottom: none;
+        }
+        
+        .blog-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .blog-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .blog-post:hover .blog-image img {
+            transform: scale(1.05);
+        }
+        
+        .blog-content h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .blog-metadata {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #555;
+        }
+        
+        .blog-excerpt {
+            margin-bottom: 1rem;
+        }
+        
+        .read-more {
+            display: inline-block;
+            color: #000;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .read-more:hover {
+            text-decoration: underline;
+        }
+        
+        .blog-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .blog-tag {
+            background-color: #f0f0f0;
+            padding: 0.3rem 0.6rem;
+            font-size: 0.8rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav ul li {
+                margin: 0.5rem 0;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .blog-post {
+                grid-template-columns: 1fr;
+            }
+            
+            .blog-image {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="skills.html">Skills</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+    
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Blog</h1>
+        
+        <p>Welcome to my blog, where I share insights, tutorials, and thoughts on machine learning, 
+           artificial intelligence, and related technologies.</p>
+           
+        <!-- Blog Categories -->
+        <div class="blog-categories">
+            <button class="category-filter active">All</button>
+            <button class="category-filter">NLP</button>
+            <button class="category-filter">Computer Vision</button>
+            <button class="category-filter">CNN</button>
+            <button class="category-filter">Backend</button>
+            <button class="category-filter">Tutorials</button>
+        </div>
+        
+        <!-- Blog Posts -->
+        <div class="blog-posts">
+            <!-- Blog Post 1 -->
+            <article class="blog-post">
+                <div class="blog-image">
+                    <!-- Replace with your actual image path -->
+                    <img src="assets/img/blog/bert-explained.jpg" alt="BERT Explained">
+                </div>
+                <div class="blog-content">
+                    <h2>Understanding BERT: The Transformer that Revolutionized NLP</h2>
+                    <div class="blog-metadata">
+                        <span class="blog-date">May 10, 2025</span>
+                        <span class="blog-author">By [Your Name]</span>
+                    </div>
+                    <div class="blog-excerpt">
+                        <p>BERT (Bidirectional Encoder Representations from Transformers) has fundamentally 
+                           changed how we approach natural language processing tasks. In this post, I break 
+                           down how BERT works, why it's so powerful, and how to implement it for your own projects.</p>
+                    </div>
+                    <a href="blog/bert-explained.html" class="read-more">Read More →</a>
+                    <div class="blog-tags">
+                        <span class="blog-tag">NLP</span>
+                        <span class="blog-tag">Transformers</span>
+                        <span class="blog-tag">Deep Learning</span>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- Blog Post 2 -->
+            <article class="blog-post">
+                <div class="blog-image">
+                    <!-- Replace with your actual image path -->
+                    <img src="assets/img/blog/image-segmentation.jpg" alt="Image Segmentation Tutorial">
+                </div>
+                <div class="blog-content">
+                    <h2>Implementing Semantic Segmentation with PyTorch</h2>
+                    <div class="blog-metadata">
+                        <span class="blog-date">April 22, 2025</span>
+                        <span class="blog-author">By [Your Name]</span>
+                    </div>
+                    <div class="blog-excerpt">
+                        <p>In this hands-on tutorial, we'll implement a semantic segmentation model using 
+                           PyTorch. We'll cover data preparation, model architecture, training process, 
+                           and evaluation metrics. By the end, you'll have a working segmentation model 
+                           that can be applied to various domains.</p>
+                    </div>
+                    <a href="blog/segmentation-pytorch.html" class="read-more">Read More →</a>
+                    <div class="blog-tags">
+                        <span class="blog-tag">Computer Vision</span>
+                        <span class="blog-tag">PyTorch</span>
+                        <span class="blog-tag">Tutorial</span>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- Blog Post 3 -->
+            <article class="blog-post">
+                <div class="blog-image">
+                    <!-- Replace with your actual image path -->
+                    <img src="assets/img/blog/deploying-ml-models.jpg" alt="Deploying ML Models">
+                </div>
+                <div class="blog-content">
+                    <h2>Deploying Machine Learning Models with FastAPI and Docker</h2>
+                    <div class="blog-metadata">
+                        <span class="blog-date">March 15, 2025</span>
+                        <span class="blog-author">By [Your Name]</span>
+                    </div>
+                    <div class="blog-excerpt">
+                        <p>Moving from a trained machine learning model to a production-ready API service 
+                           can be challenging. In this post, I'll walk through a complete workflow for 
+                           deploying ML models using FastAPI, Docker, and best practices for scalability.</p>
+                    </div>
+                    <a href="blog/fastapi-ml-deployment.html" class="read-more">Read More →</a>
+                    <div class="blog-tags">
+                        <span class="blog-tag">Backend</span>
+                        <span class="blog-tag">Deployment</span>
+                        <span class="blog-tag">FastAPI</span>
+                        <span class="blog-tag">Docker</span>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const nav = document.querySelector('nav');
+            
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    nav.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
+                } else {
+                    nav.style.backgroundColor = '#000';
+                }
+            });
+            
+            // Blog category filtering (simple implementation)
+            const categoryButtons = document.querySelectorAll('.category-filter');
+            
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    button.classList.add('active');
+                    
+                    // Here you would typically implement the actual filtering logic
+                    // For now, this is just a UI demonstration
+                });
+            });
+        });
+    </script>
+</body>
+</html>

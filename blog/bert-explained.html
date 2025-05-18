@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding BERT - [Your Name]</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            line-height: 1.6;
+            color: #000;
+            background-color: #fff;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #000;
+            padding: 1rem 0;
+            z-index: 1000;
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin: 0 1.5rem;
+        }
+        
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 7rem 2rem 2rem;
+        }
+        
+        /* Blog Post Header */
+        .blog-header {
+            margin-bottom: 2rem;
+        }
+        
+        .blog-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .blog-metadata {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+            color: #555;
+        }
+        
+        .blog-cover-image {
+            width: 100%;
+            height: auto;
+            margin-bottom: 2rem;
+            border: 1px solid #000;
+        }
+        
+        /* Blog Content */
+        .blog-content {
+            font-size: 1.1rem;
+        }
+        
+        .blog-content h2 {
+            font-size: 1.8rem;
+            margin: 2rem 0 1rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 0.5rem;
+        }
+        
+        .blog-content h3 {
+            font-size: 1.4rem;
+            margin: 1.5rem 0 1rem;
+        }
+        
+        .blog-content p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .blog-content ul,
+        .blog-content ol {
+            margin-bottom: 1.5rem;
+            margin-left: 2rem;
+        }
+        
+        .blog-content li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .blog-content img {
+            max-width: 100%;
+            height: auto;
+            margin: 1.5rem 0;
+            border: 1px solid #eee;
+        }
+        
+        /* Code Snippets */
+        .code-block {
+            background-color: #f0f0f0;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            font-family: monospace;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        
+        /* Blog Tags */
+        .blog-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 3rem 0 1.5rem;
+        }
+        
+        .blog-tag {
+            background-color: #f0f0f0;
+            padding: 0.3rem 0.6rem;
+            font-size: 0.8rem;
+        }
+        
+        /* Author Section */
+        .author-section {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .author-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        
+        .author-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .author-bio h3 {
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Related Posts */
+        .related-posts {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .related-posts h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .related-posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .related-post {
+            text-decoration: none;
+            color: #000;
+        }
+        
+        .related-post-image {
+            height: 120px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+        
+        .related-post-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .related-post:hover .related-post-image img {
+            transform: scale(1.05);
+        }
+        
+        .related-post-title {
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        /* Navigation */
+        .post-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .nav-link {
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav ul li {
+                margin: 0.5rem 0;
+            }
+            
+            .blog-title {
+                font-size: 2rem;
+            }
+            
+            .blog-content h2 {
+                font-size: 1.5rem;
+            }
+            
+            .blog-content h3 {
+                font-size: 1.2rem;
+            }
+            
+            .author-section {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .related-posts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../about.html">About</a></li>
+            <li><a href="../projects.html">Projects</a></li>
+            <li><a href="../skills.html">Skills</a></li>
+            <li><a href="../blog.html">Blog</a></li>
+            <li><a href="../contact.html">Contact</a></li>
+        </ul>
+    </nav>
+    
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Blog Header -->
+        <header class="blog-header">
+            <h1 class="blog-title">Understanding BERT: The Transformer that Revolutionized NLP</h1>
+            <div class="blog-metadata">
+                <span class="blog-date">May 10, 2025</span>
+                <span class="blog-author">By [Your Name]</span>
+                <span class="blog-reading-time">10 min read</span>
+            </div>
+            <img src="../assets/img/blog/bert-explained.jpg" alt="BERT Explained" class="blog-cover-image">
+        </header>
+        
+        <!-- Blog Content -->
+        <article class="blog-content">
+            <p>In recent years, the field of Natural Language Processing (NLP) has witnessed a revolution 
+               thanks to the introduction of transformer-based models, with BERT (Bidirectional Encoder 
+               Representations from Transformers) being one of the most influential. In this post, I'll 
+               explore what makes BERT so powerful, how it works under the hood, and how to implement 
+               it for your own NLP projects.</p>
+            
+            <h2>What is BERT?</h2>
+            <p>BERT, which stands for Bidirectional Encoder Representations from Transformers, was introduced 
+               by Google AI in 2018. It represents a significant shift in how machines understand language by 
+               considering the context of a word based on all of its surroundings (left and right of the word), 
+               rather than just looking at words sequentially.</p>
+               
+            <p>Unlike previous models that processed text either from left-to-right or combined separate 
+               left-to-right and right-to-left models, BERT is designed to pre-train deep bidirectional 
+               representations by jointly conditioning on both left and right context in all layers.</p>
+               
+            <h2>The Architecture Behind BERT</h2>
+            <p>At its core, BERT is based on the Transformer architecture introduced in the paper 
+               "Attention Is All You Need." However, BERT specifically uses the encoder portion of the 
+               Transformer, which is designed to understand the input text.</p>
+               
+            <p>The basic BERT model comes in two sizes:</p>
+            <ul>
+                <li><strong>BERT Base</strong>: 12 layers (transformer blocks), 12 attention heads, and 110 million parameters</li>
+                <li><strong>BERT Large</strong>: 24 layers, 16 attention heads, and 340 million parameters</li>
+            </ul>
+            
+            <h3>Pre-training Objectives</h3>
+            <p>What makes BERT unique is its pre-training approach, which involves two key tasks:</p>
+            
+            <h4>1. Masked Language Model (MLM)</h4>
+            <p>In this task, 15% of the tokens in the input sequence are randomly masked, and the model is 
+               trained to predict these masked tokens based on the context provided by the non-masked tokens. 
+               This forces the model to learn bidirectional representations.</p>
+               
+            <div class="code-block">
+                <pre>
+# Example of MLM:
+Original: "The cat sat on the mat."
+Masked: "The [MASK] sat on the mat."
+Task: Predict that [MASK] = "cat"</pre>
+            </div>
+            
+            <h4>2. Next Sentence Prediction (NSP)</h4>
+            <p>For this task, the model is given pairs of sentences and is trained to predict whether the 
+               second sentence follows the first in the original text. This helps the model understand the 
+               relationship between sentences, which is crucial for tasks like question answering.</p>
+               
+            <div class="code-block">
+                <pre>
+# Example of NSP:
+Sentence A: "The cat sat on the mat."
+Sentence B: "It was tired after playing all day."
+Label: IsNext
+
+Sentence A: "The cat sat on the mat."
+Sentence B: "The moon is made of cheese."
+Label: NotNext</pre>
+            </div>
+            
+            <h2>Implementing BERT in Your Projects</h2>
+            <p>Thanks to libraries like Hugging Face's Transformers, implementing BERT for your own projects 
+               has become straightforward. Here's a simple example of how to use BERT for sentiment analysis:</p>
+               
+            <div class="code-block">
+                <pre>
+import torch
+from transformers import BertTokenizer, BertForSequenceClassification
+from torch.nn.functional import softmax
+
+# Load pre-trained model and tokenizer
+tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+model = BertForSequenceClassification.from_pretrained('bert-base-uncased', num_labels=2)
+
+# Sample text for sentiment analysis
+text = "I absolutely loved this movie! The acting was superb."
+
+# Tokenize input
+inputs = tokenizer(text, return_tensors="pt", padding=True, truncation=True, max_length=512)
+
+# Forward pass through model
+with torch.no_grad():
+    outputs = model(**inputs)
+
+# Get prediction probabilities
+probs = softmax(outputs.logits, dim=1)
+positive_prob = probs[0][1].item()
+negative_prob = probs[0][0].item()
+
+print(f"Positive sentiment probability: {positive_prob:.4f}")
+print(f"Negative sentiment probability: {negative_prob:.4f}")</pre>
+            </div>
+            
+            <p>This simple example demonstrates how you can leverage BERT for sentiment analysis. 
+               The same approach can be extended to other NLP tasks with minimal modifications.</p>
+               
+            <h2>Fine-tuning BERT for Specific Tasks</h2>
+            <p>One of BERT's strengths is its ability to be fine-tuned for specific downstream tasks. 
+               The process involves adding a task-specific layer on top of the pre-trained BERT model 
+               and training the entire model on your task-specific data.</p>
+               
+            <p>Here's the general approach for fine-tuning BERT:</p>
+            <ol>
+                <li>Start with the pre-trained BERT model</li>
+                <li>Add a task-specific layer on top (e.g., a classification head for sentiment analysis)</li>
+                <li>Train the entire model on task-specific data with a relatively small learning rate</li>
+                <li>Evaluate performance on a validation set</li>
+            </ol>
+            
+            <p>BERT has been successfully fine-tuned for various NLP tasks, including:</p>
+            <ul>
+                <li>Text Classification (e.g., sentiment analysis, topic categorization)</li>
+                <li>Named Entity Recognition</li>
+                <li>Question Answering</li>
+                <li>Natural Language Inference</li>
+                <li>Text Summarization</li>
+            </ul>
+            
+            <h2>Conclusion</h2>
+            <p>BERT represents a significant milestone in NLP, demonstrating the power of bidirectional 
+               context and transformer architectures. Its impact extends beyond academic research, with 
+               real-world applications ranging from improved search engines to more sophisticated 
+               chatbots and virtual assistants.</p>
+               
+            <p>As the field continues to evolve with models like RoBERTa, ALBERT, and GPT, understanding 
+               the fundamentals of BERT provides a solid foundation for working with these advanced NLP models.</p>
+               
+            <p>In my next post, I'll dive deeper into practical applications of BERT for specific business 
+               problems and explore optimization techniques for deploying BERT models in production environments.</p>
+            
+            <!-- Blog Tags -->
+            <div class="blog-tags">
+                <span class="blog-tag">NLP</span>
+                <span class="blog-tag">BERT</span>
+                <span class="blog-tag">Transformers</span>
+                <span class="blog-tag">Deep Learning</span>
+                <span class="blog-tag">Python</span>
+            </div>
+        </article>
+        
+        <!-- Author Section -->
+        <div class="author-section">
+            <div class="author-image">
+                <!-- Replace with your actual image path -->
+                <img src="../assets/img/profile.jpg" alt="[Your Name]">
+            </div>
+            <div class="author-bio">
+                <h3>[Your Name]</h3>
+                <p>Machine Learning Engineer specializing in NLP, Image Processing, and CNN. 
+                   I'm passionate about making AI more accessible and sharing knowledge with 
+                   the community.</p>
+            </div>
+        </div>
+        
+        <!-- Related Posts -->
+        <div class="related-posts">
+            <h3>Related Posts</h3>
+            <div class="related-posts-grid">
+                <a href="transformer-architectures.html" class="related-post">
+                    <div class="related-post-image">
+                        <!-- Replace with your actual image path -->
+                        <img src="../assets/img/blog/transformers.jpg" alt="Transformer Architectures">
+                    </div>
+                    <div class="related-post-title">
+                        Comparing Transformer Architectures: BERT, GPT, and Beyond
+                    </div>
+                    <div class="related-post-date">April 18, 2025</div>
+                </a>
+                <a href="fine-tuning-techniques.html" class="related-post">
+                    <div class="related-post-image">
+                        <!-- Replace with your actual image path -->
+                        <img src="../assets/img/blog/fine-tuning.jpg" alt="Fine-tuning Techniques">
+                    </div>
+                    <div class="related-post-title">
+                        Advanced Fine-tuning Techniques for NLP Models
+                    </div>
+                    <div class="related-post-date">March 22, 2025</div>
+                </a>
+                <a href="nlp-production.html" class="related-post">
+                    <div class="related-post-image">
+                        <!-- Replace with your actual image path -->
+                        <img src="../assets/img/blog/nlp-production.jpg" alt="NLP in Production">
+                    </div>
+                    <div class="related-post-title">
+                        Optimizing NLP Models for Production Environments
+                    </div>
+                    <div class="related-post-date">February 15, 2025</div>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Post Navigation -->
+        <div class="post-navigation">
+            <a href="segmentation-pytorch.html" class="nav-link">← Previous Post</a>
+            <a href="fastapi-ml-deployment.html" class="nav-link">Next Post →</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const nav = document.querySelector('nav');
+            
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    nav.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
+                } else {
+                    nav.style.backgroundColor = '#000';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

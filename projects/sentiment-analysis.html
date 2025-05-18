@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Analysis Project - [Your Name]</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            line-height: 1.6;
+            color: #000;
+            background-color: #fff;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #000;
+            padding: 1rem 0;
+            z-index: 1000;
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin: 0 1.5rem;
+        }
+        
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 7rem 2rem 2rem;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #000;
+            padding-bottom: 0.5rem;
+        }
+        
+        section {
+            margin-bottom: 3rem;
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        /* Project Header */
+        .project-header {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .project-image {
+            flex: 0 0 40%;
+            min-width: 300px;
+        }
+        
+        .project-image img {
+            width: 100%;
+            height: auto;
+            border: 1px solid #000;
+        }
+        
+        .project-overview {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        /* Project Tags */
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+        
+        .project-tag {
+            background-color: #f0f0f0;
+            padding: 0.3rem 0.6rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        /* Project Links */
+        .project-links {
+            margin: 1.5rem 0;
+        }
+        
+        .project-link {
+            display: inline-block;
+            background-color: #000;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            font-weight: bold;
+            margin-right: 1rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .project-link:hover {
+            background-color: #333;
+        }
+        
+        /* Code Block */
+        .code-block {
+            background-color: #f0f0f0;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            font-family: monospace;
+        }
+        
+        /* Results Section */
+        .results-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .result-item {
+            border: 1px solid #000;
+            padding: 1.5rem;
+        }
+        
+        .result-number {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav ul li {
+                margin: 0.5rem 0;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../about.html">About</a></li>
+            <li><a href="../projects.html">Projects</a></li>
+            <li><a href="../skills.html">Skills</a></li>
+            <li><a href="../blog.html">Blog</a></li>
+            <li><a href="../contact.html">Contact</a></li>
+        </ul>
+    </nav>
+    
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Sentiment Analysis Model</h1>
+        
+        <div class="project-header">
+            <div class="project-image">
+                <!-- Replace with your actual image path -->
+                <img src="../assets/img/projects/nlp-project.jpg" alt="Sentiment Analysis Project">
+            </div>
+            <div class="project-overview">
+                <h2>Project Overview</h2>
+                <p>This project implements a state-of-the-art sentiment analysis model 
+                   using BERT (Bidirectional Encoder Representations from Transformers) 
+                   to analyze sentiment in product reviews.</p>
+                
+                <div class="project-tags">
+                    <span class="project-tag">NLP</span>
+                    <span class="project-tag">BERT</span>
+                    <span class="project-tag">TensorFlow</span>
+                    <span class="project-tag">Python</span>
+                </div>
+                
+                <div class="project-links">
+                    <a href="https://github.com/yourusername/sentiment-analysis" target="_blank" class="project-link">GitHub</a>
+                    <a href="../assets/docs/sentiment-analysis-paper.pdf" class="project-link">Research Paper</a>
+                    <a href="https://demo-sentiment.yourdomain.com" target="_blank" class="project-link">Live Demo</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Project Details -->
+        <section>
+            <h2>The Challenge</h2>
+            <p>Sentiment analysis is a key component of understanding customer feedback at scale. 
+               Traditional methods often struggle with context, sarcasm, and domain-specific language. 
+               This project aimed to create a model that could accurately detect sentiment across 
+               various product categories with minimal fine-tuning.</p>
+        </section>
+        
+        <section>
+            <h2>Solution Approach</h2>
+            <p>I implemented a fine-tuned BERT model, leveraging its powerful contextual 
+               understanding capabilities. The solution includes:</p>
+            <ul style="margin-left: 2rem; margin-bottom: 1rem;">
+                <li>Data preprocessing pipeline for review text</li>
+                <li>Fine-tuning of pre-trained BERT model on a domain-specific dataset</li>
+                <li>Custom loss function to handle class imbalance</li>
+                <li>Deployment architecture for real-time inference</li>
+            </ul>
+            
+            <h3 style="font-size: 1.3rem; margin: 1.5rem 0 1rem;">Key Implementation Details</h3>
+            <div class="code-block">
+                <pre>
+import tensorflow as tf
+from transformers import BertTokenizer, TFBertForSequenceClassification
+import numpy as np
+
+# Load pre-trained model and tokenizer
+tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+model = TFBertForSequenceClassification.from_pretrained('bert-base-uncased', num_labels=3)
+
+# Preprocess function
+def preprocess_text(text, tokenizer, max_length=128):
+    encoded_text = tokenizer.encode_plus(
+        text,
+        add_special_tokens=True,
+        max_length=max_length,
+        padding='max_length',
+        truncation=True,
+        return_tensors='tf'
+    )
+    return {
+        'input_ids': encoded_text['input_ids'],
+        'attention_mask': encoded_text['attention_mask']
+    }
+
+# Example prediction
+def predict_sentiment(text):
+    preprocessed = preprocess_text(text, tokenizer)
+    predictions = model(preprocessed)[0]
+    scores = tf.nn.softmax(predictions, axis=1).numpy()
+    labels = ['Negative', 'Neutral', 'Positive']
+    return {label: float(score) for label, score in zip(labels, scores[0])}
+                </pre>
+            </div>
+        </section>
+        
+        <section>
+            <h2>Results</h2>
+            <p>The model achieved impressive results across multiple metrics:</p>
+            
+            <div class="results-container">
+                <div class="result-item">
+                    <div class="result-number">94%</div>
+                    <p>Overall Accuracy on Test Dataset</p>
+                </div>
+                <div class="result-item">
+                    <div class="result-number">92%</div>
+                    <p>F1 Score for Positive Sentiment</p>
+                </div>
+                <div class="result-item">
+                    <div class="result-number">91%</div>
+                    <p>F1 Score for Negative Sentiment</p>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <h2>Key Learnings</h2>
+            <p>This project provided several valuable insights:</p>
+            <ul style="margin-left: 2rem;">
+                <li>Fine-tuning strategies significantly impact performance on domain-specific language</li>
+                <li>Data preprocessing is crucial for handling real-world review text</li>
+                <li>Deployment optimization techniques for reducing inference time while maintaining accuracy</li>
+                <li>Effective methods for handling class imbalance in sentiment datasets</li>
+            </ul>
+        </section>
+        
+        <section>
+            <h2>Future Improvements</h2>
+            <p>I'm currently working on enhancing the model with:</p>
+            <ul style="margin-left: 2rem;">
+                <li>Multi-lingual support for global product reviews</li>
+                <li>Aspect-based sentiment analysis capabilities</li>
+                <li>Emotion detection beyond basic sentiment classifications</li>
+                <li>Optimized model size for edge deployment</li>
+            </ul>
+        </section>
+    </div>
+
+    <script>
+        // Simple scroll animation
+        document.addEventListener('DOMContentLoaded', () => {
+            const nav = document.querySelector('nav');
+            
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    nav.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
+                } else {
+                    nav.style.backgroundColor = '#000';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
